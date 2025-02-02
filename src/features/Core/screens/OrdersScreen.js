@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useFocusEffect } from '@react-navigation/native';
 import OrderCard from 'components/OrderCard';
 import SimpleOrdersMetrics from 'components/SimpleOrdersMetrics';
-import { endOfYear, format, startOfYear } from 'date-fns';
+import { endOfYear, format, startOfYear, subDays } from 'date-fns';
 import { useDriver, useFleetbase, useMountedState, useResourceCollection } from 'hooks';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, RefreshControl, ScrollView, Text, View } from 'react-native';
@@ -12,7 +12,7 @@ import CalendarStrip from 'react-native-calendar-strip';
 import { EventRegister } from 'react-native-event-listeners';
 import { tailwind } from 'tailwind';
 import { formatMetersToKilometers, getColorCode, isArray, listenForOrdersFromSocket, logError } from 'utils';
-
+//redirecting to navigator app
 const { addEventListener, removeEventListener } = EventRegister;
 const REFRESH_NEARBY_ORDERS_MS = 6000 * 5; // 5 mins
 const REFRESH_ORDERS_MS = 6000 * 10; // 10 mins
@@ -36,13 +36,20 @@ const OrdersScreen = ({ navigation }) => {
     const [currentOrganization, setCurrentOrganization] = useState();
 
     const [searchingForNearbyOrders, setSearchingForNearbyOrders] = useState(false);
-    const startingDate = new Date().setDate(date.getDate() - 2);
+    // const startingDate = new Date().setDate(date.getDate() - 2);
+    const today = new Date();
+    const yesterday = subDays(today, 1);
     const datesWhitelist = [
+        //new Date(),
+        // {
+        //     start: startOfYear(new Date()),
+        //     end: endOfYear(new Date()),
+        // },
         new Date(),
         {
-            start: startOfYear(new Date()),
-            end: endOfYear(new Date()),
-        },
+            start: yesterday,
+            end: date,
+        }
     ];
 
     const setParam = useCallback((key, value) => {
@@ -149,6 +156,7 @@ const OrdersScreen = ({ navigation }) => {
     }, [isMounted]);
 
     // Listen for new orders via Socket Connection
+    
     useEffect(() => {
         listenForOrdersFromSocket(`driver.${driver?.id}`, (order, event) => {
             console.log('[socket event]', event);
@@ -186,7 +194,7 @@ const OrdersScreen = ({ navigation }) => {
             <View style={tailwind('px-4 border-b border-gray-900')}>
                 <View style={tailwind('bg-gray-900 rounded-xl shadow-sm border border-gray-800 mb-1 px-1')}>
                     <CalendarStrip
-                        scrollable
+                        //scrollable
                         ref={calendar}
                         datesWhitelist={datesWhitelist}
                         style={{ height: 100, paddingTop: 10, paddingBottom: 15 }}
@@ -200,12 +208,15 @@ const OrdersScreen = ({ navigation }) => {
                         highlightDateNumberStyle={tailwind('text-sm text-gray-100')}
                         highlightDateContainerStyle={tailwind('bg-blue-500 rounded-lg shadow-sm')}
                         iconContainer={{ flex: 0.1 }}
-                        numDaysInWeek={5}
-                        startingDate={startingDate}
+                        //startingDate={startingDate}
+                        minDate={yesterday}
+                        maxDate={new Date()}
+                        startingDate={yesterday}
+                        endingDate={new Date()}
                         selectedDate={date}
                         onDateSelected={selectedDate => setParam('on', new Date(selectedDate))}
-                        iconLeft={require('assets/nv-arrow-left.png')}
-                        iconRight={require('assets/nv-arrow-right.png')}
+                        // iconLeft={require('assets/nv-arrow-left.png')}
+                        // iconRight={require('assets/nv-arrow-right.png')}
                     />
                 </View>
                 <SimpleOrdersMetrics orders={orders} date={date} wrapperStyle={tailwind('py-2')} containerClass={tailwind('px-0')} />

@@ -100,12 +100,10 @@ android {
     }
     signingConfigs {
         release {
-            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
-                storeFile file(MYAPP_UPLOAD_STORE_FILE)
-                storePassword MYAPP_UPLOAD_STORE_PASSWORD
-                keyAlias MYAPP_UPLOAD_KEY_ALIAS
-                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
-            }
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
         }
         debug {
             storeFile file('debug.keystore')
@@ -126,6 +124,13 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    packagingOptions {
+       pickFirst "lib/arm64-v8a/liblog.so"
+       pickFirst "lib/armeabi-v7a/liblog.so"
+       pickFirst "lib/x86/liblog.so"
+       pickFirst "lib/x86_64/liblog.so"
+       pickFirst "lib/arm64-v8a/libc++_shared.so"
+  }
 }
 
 dependencies {
@@ -134,6 +139,7 @@ dependencies {
 
     // Installed dependencies
     implementation project(':react-native-config')
+    implementation project(':react-native-callkeep')
     implementation "androidx.core:core-splashscreen:1.0.0-alpha02" 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {

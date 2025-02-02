@@ -7,7 +7,7 @@ import { Header } from 'components';
 import OrdersStack from 'core/OrdersStack';
 import { useDriver, useMountedState } from 'hooks';
 import useFleetbase from 'hooks/use-fleetbase';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { Platform } from 'react-native';
 import { EventRegister } from 'react-native-event-listeners';
 import PushNotification from 'react-native-push-notification';
@@ -17,6 +17,9 @@ import { syncDevice } from 'utils/Auth';
 import { getCurrentLocation, trackDriver } from 'utils/Geo';
 import ChatsScreen from './ChatsScreen';
 import IssuesScreen from './IssuesScreen';
+import RNCallKeep from 'react-native-callkeep';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 
 const { addEventListener, removeEventListener } = EventRegister;
 const Tab = createBottomTabNavigator();
@@ -43,7 +46,7 @@ const MainScreen = ({ navigation, route }) => {
             console.log('[onNotification() #notification]', notification);
             console.log('[onNotification() #data]', data);
             console.log('[onNotification() #action]', action);
-
+            // RNCallKeep.displayIncomingCall(uuidv4(), "naya", "naya");
             if (typeof id === 'string' && id.startsWith('order')) {
                 return fleetbase.orders.findRecord(id).then(order => {
                     const data = order.serialize();
@@ -105,17 +108,38 @@ const MainScreen = ({ navigation, route }) => {
         };
     }, [isMounted]);
 
+
     // Listen for new orders via Socket Connection
     useEffect(() => {
         const notifiableEvents = ['order.ready', 'order.ping', 'order.driver_assigned', 'order.dispatched'];
 
-        listenForOrdersFromSocket(`driver.${driver?.id}`, (order, event) => {
+        listenForOrdersFromSocket(`driver.${driver?.id}`, async(order, event) => {
             if (typeof event === 'string' && notifiableEvents.includes(event)) {
+                // const storedOrder = await AsyncStorage.getItem('order');
                 let localNotificationObject = createNewOrderLocalNotificationObject(order, driver);
                 PushNotification.localNotification(localNotificationObject);
+                const order_id = await AsyncStorage.getItem(order.id);
+                console.log('order_id ', order_id);
+                if(order_id === null){
+                    await AsyncStorage.setItem(order.id, order.id);
+                    RNCallKeep.displayIncomingCall(order.id, "New Order", "New Order");
+                    RNCallKeep.addEventListener('answerCall', ({ callUUID }) => {
+                        console.log('uuid ', callUUID);
+                        RNCallKeep.endCall(callUUID);
+                        RNCallKeep.backToForeground();
+                    })
+
+                    RNCallKeep.addEventListener('endCall', () => {
+                        RNCallKeep.backToForeground();
+                    })
+                }
+                // RNCallKeep.displayIncomingCall(uuidv4(), "botit", "botit");
+                // RNCallKeep.backToForeground();
             }
         });
+
     }, []);
+
 
     return (
         <>

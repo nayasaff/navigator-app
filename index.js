@@ -9,13 +9,48 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
 import { EventRegister } from 'react-native-event-listeners';
 import { set } from './src/utils/Storage';
+import RNCallKeep from 'react-native-callkeep';
+
 
 const { emit } = EventRegister;
+
+const options = {
+    ios: {
+      appName: 'YourAppName',
+    },
+    android: {
+      alertTitle: 'Permissions Required',
+      alertDescription: 'This application needs to access your phone accounts',
+      cancelButton: 'Cancel',
+      okButton: 'OK',
+      foregroundService: {
+        channelId: 'com.yourapp.incoming_call',
+        channelName: 'Incoming Calls',
+        notificationTitle: 'Incoming Call',
+      },
+    },
+  };
+  
+  // Setup RNCallKeep during app initialization
+RNCallKeep.setup(options);
+RNCallKeep.setAvailable(true);
+
+// RNCallKeep.addEventListener('answerCall', (data) => {
+//     RNCallKeep.endAllCalls();
+//     RNCallKeep.backToForeground();
+// })
+
+// RNCallKeep.addEventListener('endCall', (data) => {
+//     RNCallKeep.backToForeground();
+// })
 
 /**
  * Push Notifications Configurations
  * We will just use EventRegister to pass up.
  */
+
+
+
 PushNotification.configure({
     // (optional) Called when Token is generated (iOS and Android)
     onRegister: function (token) {

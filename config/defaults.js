@@ -13,7 +13,7 @@ const DefaultConfig = {
     AppConfig: {
         linkingPrefixes: [],
         enableTranslations: true,
-        enabledTranslations: ['en'],
+        enabledTranslations: ["ar",'en'],
     },
 
     InterfaceConfig: {

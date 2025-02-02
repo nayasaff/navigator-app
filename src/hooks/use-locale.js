@@ -2,7 +2,7 @@ import { storage, useMMKVStorage } from 'utils/Storage';
 import { setLanguage } from 'utils/Localize';
 
 
-const useLocale = (defaultLocale = 'en') => {
+const useLocale = (defaultLocale = 'ar') => {
     const [value, setValue] = useMMKVStorage('_locale', storage, defaultLocale);
 
     const setLocale = (locale) => {
