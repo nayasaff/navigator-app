@@ -38,7 +38,7 @@ const OrdersScreen = ({ navigation }) => {
     const [searchingForNearbyOrders, setSearchingForNearbyOrders] = useState(false);
     // const startingDate = new Date().setDate(date.getDate() - 2);
     const today = new Date();
-    const yesterday = subDays(today, 1);
+    const yesterday = subDays(new Date(), 1);
     const datesWhitelist = [
         //new Date(),
         // {
@@ -48,9 +48,10 @@ const OrdersScreen = ({ navigation }) => {
         new Date(),
         {
             start: yesterday,
-            end: date,
+            end: today,
         }
     ];
+
 
     const setParam = useCallback((key, value) => {
         let updatedValue = value;
@@ -210,9 +211,9 @@ const OrdersScreen = ({ navigation }) => {
                         iconContainer={{ flex: 0.1 }}
                         //startingDate={startingDate}
                         minDate={yesterday}
-                        maxDate={new Date()}
+                        maxDate={today}
                         startingDate={yesterday}
-                        endingDate={new Date()}
+                        endingDate={today}
                         selectedDate={date}
                         onDateSelected={selectedDate => setParam('on', new Date(selectedDate))}
                         // iconLeft={require('assets/nv-arrow-left.png')}

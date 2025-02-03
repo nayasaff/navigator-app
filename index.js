@@ -19,10 +19,10 @@ const options = {
       appName: 'YourAppName',
     },
     android: {
-      alertTitle: 'Permissions Required',
-      alertDescription: 'This application needs to access your phone accounts',
-      cancelButton: 'Cancel',
-      okButton: 'OK',
+      // alertTitle: 'Permissions Required',
+      // alertDescription: 'This application needs to access your phone accounts',
+      // cancelButton: 'Cancel',
+      // okButton: 'OK',
       foregroundService: {
         channelId: 'com.yourapp.incoming_call',
         channelName: 'Incoming Calls',
@@ -31,7 +31,7 @@ const options = {
     },
   };
   
-  // Setup RNCallKeep during app initialization
+// Setup RNCallKeep during app initialization
 RNCallKeep.setup(options);
 RNCallKeep.setAvailable(true);
 
