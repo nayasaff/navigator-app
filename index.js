@@ -10,6 +10,8 @@ import PushNotification from 'react-native-push-notification';
 import { EventRegister } from 'react-native-event-listeners';
 import { set } from './src/utils/Storage';
 import RNCallKeep from 'react-native-callkeep';
+import messaging from '@react-native-firebase/messaging';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const { emit } = EventRegister;
@@ -19,10 +21,10 @@ const options = {
       appName: 'YourAppName',
     },
     android: {
-      // alertTitle: 'Permissions Required',
-      // alertDescription: 'This application needs to access your phone accounts',
-      // cancelButton: 'Cancel',
-      // okButton: 'OK',
+      alertTitle: 'Permissions Required',
+      alertDescription: 'This application needs to access your phone accounts',
+      cancelButton: 'Cancel',
+      okButton: 'OK',
       foregroundService: {
         channelId: 'com.yourapp.incoming_call',
         channelName: 'Incoming Calls',
@@ -100,6 +102,32 @@ PushNotification.configure({
         *     requestPermissions: Platform.OS === 'ios'
         */
     requestPermissions: true,
+});
+
+messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    console.log("Message handled in the background!", remoteMessage);
+
+    const orderId = remoteMessage.data.id;
+    const orderType = remoteMessage.data.type;
+
+    if (orderType === 'order_dispatched') {
+        const order_id = await AsyncStorage.getItem(orderId);
+
+        if(order_id === null) {
+            await AsyncStorage.setItem(orderId, orderId);
+            RNCallKeep.displayIncomingCall(orderId, "New Order", "New Order");
+
+            RNCallKeep.addEventListener('answerCall', ({ callUUID }) => {
+                RNCallKeep.endCall(callUUID);
+                RNCallKeep.backToForeground();
+            });
+            RNCallKeep.addEventListener('endCall', () => {
+                RNCallKeep.backToForeground();
+            });
+        }
+    }
+
+    return Promise.resolve();  // Ensure the function completes
 });
 
 AppRegistry.registerComponent(appName, () => App);
