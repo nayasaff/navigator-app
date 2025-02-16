@@ -7,6 +7,12 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
 #import <UserNotifications/UserNotifications.h>
+#import <React/RCTBridgeModule.h>
+#import <PushKit/PushKit.h>
+#import <RNCallKeep/RNCallKeep.h>
+#import <RNVoipPushNotificationManager.h>
+
+
 
 @implementation AppDelegate
 
@@ -43,6 +49,30 @@
   completionHandler(UNNotificationPresentationOptionSound |
                     UNNotificationPresentationOptionAlert |
                     UNNotificationPresentationOptionBadge);
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion {
+  // Process the received push
+  [RNVoipPushNotificationManager didReceiveIncomingPushWithPayload:payload forType:(NSString *)type];
+
+  // Retrieve information like handle and callerName here
+  // NSString *uuid = /* fetch for payload or ... */ [[[NSUUID UUID] UUIDString] lowercaseString];
+  // NSString *callerName = @"caller name here";
+  // NSString *handle = @"caller number here";
+  // NSDictionary *extra = [payload.dictionaryPayload valueForKeyPath:@"custom.path.to.data"]; /* use this to pass any special data (ie. from your notification) down to RN. Can also be `nil` */
+
+  [RNCallKeep reportNewIncomingCall: uuid
+                             handle: handle
+                         handleType: @"generic"
+                           hasVideo: NO
+                localizedCallerName: callerName
+                    supportsHolding: YES
+                       supportsDTMF: YES
+                   supportsGrouping: YES
+                 supportsUngrouping: YES
+                        fromPushKit: YES
+                            payload: extra
+              withCompletionHandler: completion];
 }
 
 // Required for the register event.

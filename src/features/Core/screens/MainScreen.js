@@ -17,6 +17,8 @@ import { syncDevice } from 'utils/Auth';
 import { getCurrentLocation, trackDriver } from 'utils/Geo';
 import ChatsScreen from './ChatsScreen';
 import IssuesScreen from './IssuesScreen';
+import { AppState } from 'react-native';
+import fireCall from '../../../utils/Call';
 
 
 const { addEventListener, removeEventListener } = EventRegister;
@@ -110,29 +112,33 @@ const MainScreen = ({ navigation, route }) => {
     // Listen for new orders via Socket Connection
     useEffect(() => {
         const notifiableEvents = ['order.ready', 'order.ping', 'order.driver_assigned', 'order.dispatched'];
+        let appState = AppState.currentState; // Initialize app state
 
+        const handleAppStateChange = (nextAppState) => {
+            if (appState.match(/inactive|background/) && nextAppState === 'active') {
+                // App has come to the foreground
+                console.log("App has come to the foreground!");
+                appState = nextAppState; 
+            }
+            appState = nextAppState;
+        };
+    
+        AppState.addEventListener('change', handleAppStateChange);
+    
         listenForOrdersFromSocket(`driver.${driver?.id}`, async(order, event) => {
             if (typeof event === 'string' && notifiableEvents.includes(event)) {
                 let localNotificationObject = createNewOrderLocalNotificationObject(order, driver);
                 PushNotification.localNotification(localNotificationObject);
-                // const order_id = await AsyncStorage.getItem(order.id);
-                // console.log('order_id ', order_id);
-                // if(order_id === null){
-                //     await AsyncStorage.setItem(order.id, order.id);
-                //     RNCallKeep.displayIncomingCall(order.id, "New Order", "New Order");
-                //     RNCallKeep.addEventListener('answerCall', ({ callUUID }) => {
-                //         console.log('uuid ', callUUID);
-                //         RNCallKeep.endCall(callUUID);
-                //         RNCallKeep.backToForeground();
-                //     })
+                if(AppState.currentState === 'active') {
+                   fireCall(order.id);
+                }
 
-                //     RNCallKeep.addEventListener('endCall', () => {
-                //         RNCallKeep.backToForeground();
-                //     })
-                // }
             }
         });
-
+        
+        return () => {
+            AppState.removeEventListener('change', handleAppStateChange);
+        };
     }, []);
 
 

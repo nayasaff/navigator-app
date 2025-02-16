@@ -11,7 +11,7 @@ import { EventRegister } from 'react-native-event-listeners';
 import { set } from './src/utils/Storage';
 import RNCallKeep from 'react-native-callkeep';
 import messaging from '@react-native-firebase/messaging';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import fireCall from './src/utils/Call';
 
 
 const { emit } = EventRegister;
@@ -111,20 +111,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     const orderType = remoteMessage.data.type;
 
     if (orderType === 'order_dispatched') {
-        const order_id = await AsyncStorage.getItem(orderId);
-
-        if(order_id === null) {
-            await AsyncStorage.setItem(orderId, orderId);
-            RNCallKeep.displayIncomingCall(orderId, "New Order", "New Order");
-
-            RNCallKeep.addEventListener('answerCall', ({ callUUID }) => {
-                RNCallKeep.endCall(callUUID);
-                RNCallKeep.backToForeground();
-            });
-            RNCallKeep.addEventListener('endCall', () => {
-                RNCallKeep.backToForeground();
-            });
-        }
+        fireCall(orderId);
     }
 
     return Promise.resolve();  // Ensure the function completes
