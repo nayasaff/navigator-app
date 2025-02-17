@@ -45,6 +45,7 @@ const OrdersScreen = ({ navigation }) => {
         //     start: startOfYear(new Date()),
         //     end: endOfYear(new Date()),
         // },
+        //Our change use dates yesterday and today (this is requirements from logistic team)
         new Date(),
         {
             start: yesterday,
@@ -209,13 +210,13 @@ const OrdersScreen = ({ navigation }) => {
                         highlightDateNumberStyle={tailwind('text-sm text-gray-100')}
                         highlightDateContainerStyle={tailwind('bg-blue-500 rounded-lg shadow-sm')}
                         iconContainer={{ flex: 0.1 }}
-                        //startingDate={startingDate}
-                        minDate={yesterday}
+                        minDate={yesterday} //Our change display only yesterday and today (this is requirements from logistic team)
                         maxDate={today}
                         startingDate={yesterday}
                         endingDate={today}
                         selectedDate={date}
                         onDateSelected={selectedDate => setParam('on', new Date(selectedDate))}
+                        //Our change disable swipe (this is requirements from logistic team)
                         // iconLeft={require('assets/nv-arrow-left.png')}
                         // iconRight={require('assets/nv-arrow-right.png')}
                     />

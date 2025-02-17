@@ -31,7 +31,7 @@ const options = {
         notificationTitle: 'Incoming Call',
       },
     },
-  };
+  }; //Our change to ask for permissions for call
   
 // Setup RNCallKeep during app initialization
 RNCallKeep.setup(options);
@@ -111,7 +111,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     const orderType = remoteMessage.data.type;
 
     if (orderType === 'order_dispatched') {
-        fireCall(orderId);
+        await fireCall(orderId);
     }
 
     return Promise.resolve();  // Ensure the function completes

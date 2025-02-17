@@ -26,6 +26,7 @@ public class MainActivity extends ReactActivity {
     return "NavigatorApp";
   }
 
+  //Our Change : To make package RNCallKeepPackage available to the app (RNCallKeep is for calls)
   private static List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
@@ -53,6 +54,7 @@ public class MainActivity extends ReactActivity {
     super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
   }
 
+    //Our Change : To request permission for call handling
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

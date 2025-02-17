@@ -57,7 +57,7 @@ target 'NavigatorApp' do
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   # pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
   pod 'RNFileViewer', :path => '../node_modules/react-native-file-viewer'
-  pod 'RNCallKeep', :path => '../node_modules/react-native-callkeep'
+  pod 'RNCallKeep', :path => '../node_modules/react-native-callkeep' #Our Change install RNCallKeep in ios, RNCallKeep is for calls
   target 'NavigatorAppTests' do
     inherit! :complete
     # Pods for testing

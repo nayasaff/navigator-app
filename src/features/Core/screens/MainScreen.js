@@ -130,7 +130,7 @@ const MainScreen = ({ navigation, route }) => {
                 let localNotificationObject = createNewOrderLocalNotificationObject(order, driver);
                 PushNotification.localNotification(localNotificationObject);
                 if(AppState.currentState === 'active') {
-                   fireCall(order.id);
+                   await fireCall(order.id);
                 }
 
             }
