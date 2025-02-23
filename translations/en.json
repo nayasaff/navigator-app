@@ -186,5 +186,56 @@
         "pending": "Pending",
         "in_progress": "In progress",
         "completed": "Completed"
+    },
+    "OrderScreen" : {
+        "incomingOrder": "Incoming Order!",
+        "acceptOrder": "Accept Order",
+        "declineOrder" : "Decline Order",
+        "startOrder": "Start Order",
+        "updateActivity": "Update Activity",
+        "currentDestination": "Current Destination",
+        "change": "Change",
+        "setDestination": "Set Destination",
+        "customer" : "Customer",
+        "noCustomer" : "No Customer",
+        "orderDetails" : "Details",
+        "status" : "Status",
+        "internalId" : "Internal ID",
+        "orderType" : "Order Type",
+        "trackingNumber" : "Tracking Number",
+        "dateCreated" : "Date Created",
+        "dateScheduled" : "Date Scheduled",
+        "dateDispatched" : "Date Dispatched",
+        "dateStarted" : "Date Started",
+        "meta" : "Metadata/ More Details",
+        "qrCode" : "QR Code/ Barcode",
+        "notes" : "Notes",
+        "payload" : "Payload",
+        "itemsDropAt" : "Items drop at",
+        "nearbyOrders" : "Nearby orders found"
+    },
+    "OrderMapPicker" : {
+        "navigate" : "Navigate"
+    },
+    "PhotoUpload" : {
+        "selectAction" : "Select Action",
+        "takePhoto" : "Take Photo",
+        "chooseFromLibrary" : "Choose from Library",
+        "cancel" : "Cancel"
+    },
+    "ScheduleScreen" : {
+        "noOrders" : "No orders scheduled for this day"
+    },
+    "NavigationScreen" : {
+        "navigation" : "Navigation"
+    },
+    "ProofScreen" : {
+        "reset" : "Reset",
+        "capture" : "Capture",
+        "focusTarget" : "Focus target at QR Code to Scan",
+        "currentDestination" : "Current Destination",
+        "tracking" : "Tracking",
+        "internalId" : "Internal ID",
+        "sku" : "SKU"
     }
 }
