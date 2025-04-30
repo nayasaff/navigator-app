@@ -60,7 +60,7 @@ const OrderMapPicker = ({ title = 'Select Navigator', wrapperStyle, order, butto
                     <View style={tailwind('flex flex-row justify-start')}>
                         <View style={tailwind('border-r border-blue-700 py-2 pr-4 flex flex-row items-center')}>
                             <FontAwesomeIcon icon={faLocationArrow} style={tailwind('text-blue-50 mr-2')} />
-                            <Text style={tailwind('font-semibold text-blue-50 text-base')}>Navigate</Text>
+                            <Text style={tailwind('font-semibold text-blue-50 text-base')}>{translate("OrderMapPicker.navigate")}</Text>
                         </View>
                         <View style={tailwind('flex-1 py-2 px-2 flex items-center')}>
                             <Text numberOfLines={1} style={tailwind('text-blue-50 text-base')}>

@@ -11,7 +11,15 @@ import { ActivityIndicator, RefreshControl, ScrollView, Text, View } from 'react
 import CalendarStrip from 'react-native-calendar-strip';
 import { EventRegister } from 'react-native-event-listeners';
 import { tailwind } from 'tailwind';
+import { transform } from 'typescript';
 import { formatMetersToKilometers, getColorCode, isArray, listenForOrdersFromSocket, logError } from 'utils';
+import { tranlsate } from "utils"
+import moment from 'moment';
+import { getLanguage } from '../../../utils/Localize';
+import 'moment/locale/ar'; 
+
+
+
 //redirecting to navigator app
 const { addEventListener, removeEventListener } = EventRegister;
 const REFRESH_NEARBY_ORDERS_MS = 6000 * 5; // 5 mins
@@ -34,6 +42,9 @@ const OrdersScreen = ({ navigation }) => {
     const [orders, setOrders] = useResourceCollection(`orders_${format(date, 'yyyyMMdd')}`, Order, fleetbase.getAdapter());
     const [nearbyOrders, setNearbyOrders] = useState([]);
     const [currentOrganization, setCurrentOrganization] = useState();
+
+    const currentLanguage = getLanguage()
+    moment.locale(getLanguage());
 
     const [searchingForNearbyOrders, setSearchingForNearbyOrders] = useState(false);
     // const startingDate = new Date().setDate(date.getDate() - 2);
@@ -201,7 +212,7 @@ const OrdersScreen = ({ navigation }) => {
                         datesWhitelist={datesWhitelist}
                         style={{ height: 100, paddingTop: 10, paddingBottom: 15 }}
                         calendarColor={'transparent'}
-                        calendarHeaderStyle={tailwind('text-gray-300 text-xs')}
+                        calendarHeaderStyle={[tailwind('text-gray-300 text-xs'), {writingDirection : currentLanguage === "ar" ? "rtl" : "ltr"}]}
                         calendarHeaderContainerStyle={tailwind('mb-2.5')}
                         dateNumberStyle={tailwind('text-sm text-gray-500')}
                         dateNameStyle={tailwind('text-sm text-gray-500')}
@@ -216,6 +227,13 @@ const OrdersScreen = ({ navigation }) => {
                         endingDate={today}
                         selectedDate={date}
                         onDateSelected={selectedDate => setParam('on', new Date(selectedDate))}
+                        locale={{
+                            name: currentLanguage,
+                            config: {
+                              months: moment.localeData(currentLanguage).months(),
+                              weekdays: moment.localeData(currentLanguage).weekdays(),
+                            },
+                          }}
                         //Our change disable swipe (this is requirements from logistic team)
                         // iconLeft={require('assets/nv-arrow-left.png')}
                         // iconRight={require('assets/nv-arrow-right.png')}
@@ -240,7 +258,7 @@ const OrdersScreen = ({ navigation }) => {
                             <View>
                                 <View style={tailwind('mb-2.5 px-2 flex-row items-center')}>
                                     <FontAwesomeIcon icon={faSatelliteDish} color={getColorCode('text-yellow-900')} style={tailwind('mr-2')} />
-                                    <Text style={tailwind('text-yellow-900 font-bold text-lg')}>Nearby orders found</Text>
+                                    <Text style={tailwind('text-yellow-900 font-bold text-lg')}>{tranlsate("OrderScreen.nearbyOrders")}</Text>
                                 </View>
                                 {nearbyOrders
                                     .sort((a, b) => b.createdAt - a.createdAt)
@@ -261,7 +279,7 @@ const OrdersScreen = ({ navigation }) => {
                                                 headerTop={
                                                     <View style={tailwind('pt-3 pb-2 px-3')}>
                                                         <Text style={tailwind('text-yellow-900 font-semibold')}>
-                                                            Nearby order {formatMetersToKilometers(order.getAttribute('distance'))} away
+                                                            {tranlsate("OrderScreen.nearbyOrder")}{formatMetersToKilometers(order.getAttribute('distance'))} away
                                                         </Text>
                                                     </View>
                                                 }

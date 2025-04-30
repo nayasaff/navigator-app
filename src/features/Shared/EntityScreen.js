@@ -105,7 +105,7 @@ const EntityScreen = ({ navigation, route }) => {
                             <View style={tailwind('flex flex-col items-center')}>
                                 <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700')}>
                                     <View style={tailwind('flex flex-row items-center')}>
-                                        <Text style={tailwind('font-semibold text-gray-100')}>Customer</Text>
+                                        <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.customer")}</Text>
                                     </View>
                                 </View>
                                 <View style={tailwind('w-full p-4')}>
@@ -121,7 +121,7 @@ const EntityScreen = ({ navigation, route }) => {
                                             </View>
                                         </View>
                                     ) : (
-                                        <Text style={tailwind('text-gray-100')}>No Customer</Text>
+                                        <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.noCustomer")}</Text>
                                     )}
                                 </View>
                             </View>
@@ -130,13 +130,13 @@ const EntityScreen = ({ navigation, route }) => {
                             <View style={tailwind('flex flex-col items-center')}>
                                 <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700 mb-1')}>
                                     <View style={tailwind('flex flex-row items-center')}>
-                                        <Text style={tailwind('font-semibold text-gray-100')}>Details</Text>
+                                        <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.orderDetails")}</Text>
                                     </View>
                                 </View>
                                 <View style={tailwind('w-full py-2')}>
                                     <View style={tailwind('flex flex-row items-center justify-between pb-1 px-3')}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Tracking Number</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.trackingNumber")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{entity.getAttribute('tracking_number.tracking_number')}</Text>
@@ -152,7 +152,7 @@ const EntityScreen = ({ navigation, route }) => {
                                     </View>
                                     <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Status</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.status")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <OrderStatusBadge status={entity.getAttribute('status') ?? 'created'} style={tailwind('px-3 py-0.5')} />
@@ -168,7 +168,7 @@ const EntityScreen = ({ navigation, route }) => {
                                     </View>
                                     <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Internal ID</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.internalId")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{entity.getAttribute('internal_id')}</Text>
@@ -205,7 +205,7 @@ const EntityScreen = ({ navigation, route }) => {
                                     </View>
                                     <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Date Created</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.dateCreated")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{entity.createdAt ? format(entity.createdAt, 'PPpp') : 'None'}</Text>
@@ -286,7 +286,7 @@ const EntityScreen = ({ navigation, route }) => {
                             <View style={tailwind('flex flex-col items-center')}>
                                 <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700')}>
                                     <View style={tailwind('flex flex-row items-center')}>
-                                        <Text style={tailwind('font-semibold text-gray-100')}>Notes</Text>
+                                        <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.notes")}</Text>
                                     </View>
                                 </View>
                                 <View style={tailwind('w-full p-4')}>
@@ -298,7 +298,7 @@ const EntityScreen = ({ navigation, route }) => {
                             <View style={tailwind('flex flex-col items-center')}>
                                 <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700')}>
                                     <View style={tailwind('flex flex-row items-center')}>
-                                        <Text style={tailwind('font-semibold text-gray-100')}>QR Code/ Barcode</Text>
+                                        <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.qrCode")}</Text>
                                     </View>
                                 </View>
                                 <View style={tailwind('w-full p-4 flex flex-row items-center justify-center')}>

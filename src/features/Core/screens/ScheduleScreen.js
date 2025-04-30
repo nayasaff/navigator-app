@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, RefreshControl, Text, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { tailwind } from 'tailwind';
-import { getColorCode, logError } from 'utils';
+import { getColorCode, logError, translate } from 'utils';
 
 const { width, height } = Dimensions.get('window');
 const DATE_FORMAT = 'yyyy-MM-dd';
@@ -82,7 +82,7 @@ const ScheduleScreen = ({ navigation }) => {
                 renderItem={item => <OrderCard order={item} onPress={() => navigation.push('OrderScreen', { data: item?.serialize() })} />}
                 renderEmptyDate={() => (
                     <View style={[tailwind('w-full flex py-12'), { height: height - 330 }]}>
-                        <Text style={tailwind('text-gray-400 pl-8')}>No orders scheduled for this day</Text>
+                        <Text style={tailwind('text-gray-400 pl-8')}>{translate("ScheduleScreen.noOrders")}</Text>
                     </View>
                 )}
                 onRefresh={onRefresh}

@@ -22,7 +22,7 @@ const ChangePasswordScreen = ({ navigation, route }) => {
                     <Text style={tailwind('text-xl font-semibold')}>{translate('Account.ChangePasswordScreen.title')}</Text>
                 </View>
                 <View style={tailwind('flex items-center justify-center w-full h-full')}>
-                    <Text>Change Password Screen</Text>
+                    <Text>{translate('Account.AccountScreen.changePasswordScreen')}</Text>
                 </View>
             </View>
         </View>

@@ -18,6 +18,7 @@ import tailwind from 'tailwind';
 import { calculatePercentage, formatCurrency, formatMetaValue, getColorCode, getStatusColors, isArray, isEmpty, logError, titleize, translate } from 'utils';
 import { getString, setString } from 'utils/Storage';
 import OrderMapPicker from '../../components/OrderMapPicker';
+import { getLanguage } from '../../utils/Localize';
 
 const { addEventListener, removeEventListener } = EventRegister;
 const { width, height } = Dimensions.get('window');
@@ -83,6 +84,8 @@ const OrderScreen = ({ navigation, route }) => {
     const isDriverAssigned = order.getAttribute('driver_assigned') !== null;
     const isOrderPing = isDriverAssigned === false && isAdhoc === true && !['completed', 'canceled'].includes(order.getAttribute('status'));
     const documents = order.getAttribute('files', []);
+    const currentLanguage = getLanguage()
+
     const entitiesByDestination = (() => {
         const groups = [];
 
@@ -512,21 +515,21 @@ const OrderScreen = ({ navigation, route }) => {
                             <View>
                                 <View style={tailwind('mb-2 flex flex-row items-center')}>
                                     <FontAwesomeIcon icon={faBell} style={tailwind('text-yellow-400 mr-1')} />
-                                    <Text style={tailwind('text-lg text-white font-semibold')}>Incoming Order!</Text>
+                                    <Text style={tailwind('text-lg text-white font-semibold')}>{translate("OrderScreen.incomingOrder")}</Text>
                                 </View>
                                 <View style={tailwind('flex flex-row items-center justify-between')}>
                                     <View style={tailwind('pr-1 flex-1')}>
                                         <TouchableOpacity style={tailwind('')} onPress={() => startOrder({ assign: driver.id })}>
                                             <View style={tailwind('btn bg-green-900 border border-green-700')}>
                                                 {isLoadingAction && <ActivityIndicator color={getColorCode('text-green-50')} style={tailwind('mr-2')} />}
-                                                <Text style={tailwind('font-semibold text-green-50 text-base')}>Accept Order</Text>
+                                                <Text style={tailwind('font-semibold text-green-50 text-base')}>{translate("OrderScreen.acceptOrder")}</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
                                     <View style={tailwind('pl-1 flex-1')}>
                                         <TouchableOpacity style={tailwind('')} onPress={() => declineOrder()}>
                                             <View style={tailwind('btn bg-red-900 border border-red-700')}>
-                                                <Text style={tailwind('font-semibold text-red-50 text-base')}>Decline Order</Text>
+                                                <Text style={tailwind('font-semibold text-red-50 text-base')}>{translate("OrderScreen.declineOrder")}</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -537,7 +540,7 @@ const OrderScreen = ({ navigation, route }) => {
                             <TouchableOpacity style={tailwind('')} onPress={() => startOrder()}>
                                 <View style={tailwind('btn bg-green-900 border border-green-700')}>
                                     {isLoadingAction && <ActivityIndicator color={getColorCode('text-green-50')} style={tailwind('mr-2')} />}
-                                    <Text style={tailwind('font-semibold text-green-50 text-base')}>Start Order</Text>
+                                    <Text style={tailwind('font-semibold text-green-50 text-base')}>{translate("OrderScreen.startOrder")}</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -545,7 +548,7 @@ const OrderScreen = ({ navigation, route }) => {
                             <TouchableOpacity style={tailwind('')} onPress={updateOrderActivity}>
                                 <View style={tailwind('btn bg-green-900 border border-green-700')}>
                                     {isLoadingAction && <ActivityIndicator color={getColorCode('text-green-50')} style={tailwind('mr-2')} />}
-                                    <Text style={tailwind('font-semibold text-green-50 text-base')}>Update Activity</Text>
+                                    <Text style={tailwind('font-semibold text-green-50 text-base')}>{translate("OrderScreen.updateActivity")}</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -568,7 +571,7 @@ const OrderScreen = ({ navigation, route }) => {
                                 <View style={tailwind('mb-4')}>
                                     <View style={tailwind('flex rounded-md bg-blue-900 border border-blue-700')}>
                                         <View style={tailwind('px-4 py-2 flex-1 border-b border-blue-700')}>
-                                            <Text style={tailwind('font-bold text-white mb-1')}>Current Destination</Text>
+                                            <Text style={tailwind('font-bold text-white mb-1')}>{translate("OrderScreen.currentDestination")}</Text>
                                             <Text style={tailwind('text-blue-50')}>{destination.address}</Text>
                                             {destination?.tracking && (
                                                 <View style={tailwind('my-2 flex flex-row')}>
@@ -582,7 +585,7 @@ const OrderScreen = ({ navigation, route }) => {
                                                     onPress={toggleChangeDestinationWaypoint}
                                                     style={tailwind('flex-1 px-2 py-2 border-r border-blue-700 flex items-center justify-center')}>
                                                     <FontAwesomeIcon icon={faRoute} style={tailwind('text-blue-50 mb-1')} />
-                                                    <Text style={tailwind('text-blue-50')}>Change</Text>
+                                                    <Text style={tailwind('text-blue-50')}>{translate("OrderScreen.change")}</Text>
                                                 </TouchableOpacity>
                                             </View>
                                         )}
@@ -595,7 +598,7 @@ const OrderScreen = ({ navigation, route }) => {
                                         <View style={tailwind('flex flex-row')}>
                                             <TouchableOpacity onPress={toggleChangeDestinationWaypoint} style={tailwind('flex flex-row px-4 py-3 flex items-center justify-center')}>
                                                 <FontAwesomeIcon icon={faMapMarkerAlt} style={tailwind('text-blue-50 mr-2')} />
-                                                <Text style={tailwind('text-blue-50 font-semibold')}>Set Destination</Text>
+                                                <Text style={tailwind('text-blue-50 font-semibold')}>{translate("OrderScreen.setDestination")}</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -605,9 +608,9 @@ const OrderScreen = ({ navigation, route }) => {
                         </View>
                         <View style={tailwind('mt-2')}>
                             <View style={tailwind('flex flex-col items-center')}>
-                                <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700')}>
+                                <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between w-full p-4 border-t border-b border-gray-700`)}>
                                     <View style={tailwind('flex flex-row items-center')}>
-                                        <Text style={tailwind('font-semibold text-gray-100')}>Customer</Text>
+                                        <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.customer")}</Text>
                                     </View>
                                 </View>
                                 <View style={tailwind('w-full p-4')}>
@@ -623,78 +626,78 @@ const OrderScreen = ({ navigation, route }) => {
                                             </View>
                                         </View>
                                     ) : (
-                                        <Text style={tailwind('text-gray-100')}>No Customer</Text>
+                                        <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.noCustomer")}</Text>
                                     )}
                                 </View>
                             </View>
                         </View>
                         <View style={tailwind('mt-2')}>
                             <View style={tailwind('flex flex-col items-center')}>
-                                <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700 mb-1')}>
+                                <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between w-full p-4 border-t border-b border-gray-700 mb-1`)}>
                                     <View style={tailwind('flex flex-row items-center')}>
-                                        <Text style={tailwind('font-semibold text-gray-100')}>Details</Text>
+                                        <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.orderDetails")}</Text>
                                     </View>
                                 </View>
                                 <View style={tailwind('w-full py-2')}>
-                                    <View style={tailwind('flex flex-row items-center justify-between pb-1 px-3')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between pb-1 px-3`)}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Status</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.status")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <OrderStatusBadge status={order.getAttribute('status')} style={tailwind('px-3 py-0.5')} />
                                         </View>
                                     </View>
-                                    <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between py-2 px-3`)}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Internal ID</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.internalId")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{order.getAttribute('internal_id')}</Text>
                                         </View>
                                     </View>
-                                    <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between py-2 px-3`)}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Order Type</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.orderType")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{order.getAttribute('type')}</Text>
                                         </View>
                                     </View>
-                                    <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between py-2 px-3`)}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Tracking Number</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.trackingNumber")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{order.getAttribute('tracking_number.tracking_number')}</Text>
                                         </View>
                                     </View>
-                                    <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between py-2 px-3`)}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Date Created</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.dateCreated")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{order.createdAt ? format(order.createdAt, 'PPpp') : 'None'}</Text>
                                         </View>
                                     </View>
-                                    <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between py-2 px-3`)}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Date Scheduled</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.dateScheduled")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{order.scheduledAt ? format(order.scheduledAt, 'PPpp') : 'None'}</Text>
                                         </View>
                                     </View>
-                                    <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between py-2 px-3`)}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Date Dispatched</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.dateDispatched")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{order.dispatchedAt ? format(order.dispatchedAt, 'PPpp') : 'None'}</Text>
                                         </View>
                                     </View>
-                                    <View style={tailwind('flex flex-row items-center justify-between py-2 px-3')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between py-2 px-3`)}>
                                         <View style={tailwind('flex-1')}>
-                                            <Text style={tailwind('text-gray-100')}>Date Started</Text>
+                                            <Text style={tailwind('text-gray-100')}>{translate("OrderScreen.dateStarted")}</Text>
                                         </View>
                                         <View style={tailwind('flex-1 flex-col items-end')}>
                                             <Text style={tailwind('text-gray-100')}>{order.startedAt ? format(order.startedAt, 'PPpp') : 'None'}</Text>
@@ -706,15 +709,15 @@ const OrderScreen = ({ navigation, route }) => {
                         {!isObjectEmpty(order.meta) && (
                             <View style={tailwind('mt-2')}>
                                 <View style={tailwind('flex flex-col items-center')}>
-                                    <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700 mb-1')}>
+                                    <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between w-full p-4 border-t border-b border-gray-700 mb-1`)}>
                                         <View style={tailwind('flex flex-row items-center')}>
-                                            <Text style={tailwind('font-semibold text-gray-100')}>Metadata/ More Details</Text>
+                                            <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.meta")}</Text>
                                         </View>
                                     </View>
                                     <View style={tailwind('w-full py-2 -mt-1')}>
                                         {isArray(Object.keys(order.meta)) &&
                                             Object.keys(order.meta).map((key, index) => (
-                                                <View key={index} style={tailwind('flex flex-row items-start justify-between py-2 px-3')}>
+                                                <View key={index} style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-start justify-between py-2 px-3`)}>
                                                     <View style={tailwind('w-20')}>
                                                         <Text style={tailwind('text-gray-100')}>{titleize(key)}</Text>
                                                     </View>
@@ -731,9 +734,9 @@ const OrderScreen = ({ navigation, route }) => {
                         )}
                         <View style={tailwind('mt-2')}>
                             <View style={tailwind('flex flex-col items-center')}>
-                                <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700')}>
+                                <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between w-full p-4 border-t border-b border-gray-700`)}>
                                     <View style={tailwind('flex flex-row items-center')}>
-                                        <Text style={tailwind('font-semibold text-gray-100')}>QR Code/ Barcode</Text>
+                                        <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.qrCode")}</Text>
                                     </View>
                                 </View>
                                 <View style={tailwind('w-full p-4 flex flex-row items-center justify-center')}>
@@ -748,9 +751,9 @@ const OrderScreen = ({ navigation, route }) => {
                         </View>
                         <View style={tailwind('mt-2')}>
                             <View style={tailwind('flex flex-col items-center')}>
-                                <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700')}>
+                                <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between w-full p-4 border-t border-b border-gray-700`)}>
                                     <View style={tailwind('flex flex-row items-center')}>
-                                        <Text style={tailwind('font-semibold text-gray-100')}>Notes</Text>
+                                        <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.notes")}</Text>
                                     </View>
                                 </View>
                                 <View style={tailwind('w-full p-4')}>
@@ -763,7 +766,7 @@ const OrderScreen = ({ navigation, route }) => {
                                 <View style={tailwind('flex flex-col items-center')}>
                                     <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700')}>
                                         <View style={tailwind('flex flex-row items-center')}>
-                                            <Text style={tailwind('font-semibold text-gray-100')}>Payload</Text>
+                                            <Text style={tailwind('font-semibold text-gray-100')}>{translate("OrderScreen.payload")}</Text>
                                         </View>
                                     </View>
                                     <View>
@@ -774,7 +777,7 @@ const OrderScreen = ({ navigation, route }) => {
                                                         <View key={i} style={tailwind('w-full')}>
                                                             <View style={tailwind('rounded-md p-4 mb-4 border-b border-gray-700')}>
                                                                 <View style={tailwind('mb-3')}>
-                                                                    <Text style={tailwind('text-gray-100 text-sm mb-1')}>Items drop at</Text>
+                                                                    <Text style={tailwind('text-gray-100 text-sm mb-1')}>{translate("OrderScreen.itemsDropAt")}</Text>
                                                                     <Text style={tailwind('text-gray-100 font-bold')}>{group.waypoint.address}</Text>
                                                                 </View>
                                                                 <View style={tailwind('w-full flex flex-row flex-wrap items-start')}>
@@ -847,7 +850,7 @@ const OrderScreen = ({ navigation, route }) => {
                         )}
                         <View style={tailwind('mt-2')}>
                             <View style={tailwind('flex flex-col items-center')}>
-                                <View style={tailwind('flex flex-row items-center justify-between w-full p-4 border-t border-b border-gray-700')}>
+                                <View style={tailwind(`flex ${currentLanguage === "ar" ? "flex-row-reverse" : "flex-row"} items-center justify-between w-full p-4 border-t border-b border-gray-700`)}>
                                     <View style={tailwind('flex flex-row items-center')}>
                                         <Text style={tailwind('font-semibold text-gray-100')}>Documents & Files</Text>
                                     </View>
@@ -986,7 +989,7 @@ const OrderScreen = ({ navigation, route }) => {
                                                         onPress={() => sendOrderActivityUpdate(activity)}>
                                                         {isLoadingActivity && <ActivityIndicator color={getColorCode('text-green-50')} style={tailwind('ml-8 mr-3')} />}
                                                         <View style={tailwind('w-full flex flex-col items-start py-2')}>
-                                                            <Text style={tailwind(`font-bold text-lg text-${getStatusColors(activity.code).color}-50`)}>{activity.status}</Text>
+                                                            <Text style={tailwind(`font-bold text-lg text-${getStatusColors(activity.code).color}-50`)}>{translate(`status.${activity.status}`)}</Text>
                                                             <Text style={tailwind(`text-${getStatusColors(activity.code).color}-100`)}>{activity.details}</Text>
                                                             {activity.require_pod && (
                                                                 <View style={tailwind('mt-3')}>

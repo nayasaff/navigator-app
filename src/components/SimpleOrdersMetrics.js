@@ -4,17 +4,18 @@ import { pluralize, formatDuration, formatMetersToKilometers, getActiveOrdersCou
 import { Order } from '@fleetbase/sdk';
 import { tailwind } from 'tailwind';
 import { format } from 'date-fns';
+import {translate} from "utils"
 
 const SimpleOrdersMetrics = ({ orders, date = new Date(), wrapperStyle, containerStyle }) => {
     return (
         <View style={[wrapperStyle]}>
             <View style={[tailwind('px-4'), containerStyle]}>
-                <Text style={tailwind('font-semibold text-lg text-gray-50 w-full mb-1')}>{`${format(date, 'eeee')} orders`}</Text>
+                <Text style={tailwind('font-semibold text-lg text-gray-50 w-full mb-1')}>{`${format(date, 'eeee')} ${translate("Account.AccountScreen.ordersLinkText")}`}</Text>
                 <View>
                     <View style={tailwind('flex flex-row items-center mb-1')}>
-                        <Text style={tailwind('text-base text-gray-100')}>{pluralize(getActiveOrdersCount(orders), 'order')}</Text>
+                        <Text style={tailwind('text-base text-gray-100')}> {translate(`SimpleOrderMetricts.${pluralize(getActiveOrdersCount(orders), 'order')}`)}</Text>
                         <Text style={tailwind('text-base text-gray-100 mx-2')}>•</Text>
-                        <Text style={tailwind('text-base text-gray-100')}>{`${getTotalStops(orders)} stops`}</Text>
+                        <Text style={tailwind('text-base text-gray-100')}>{`${getTotalStops(orders)} ${translate("SimpleOrderMetricts.stops")}`}</Text>
                         <Text style={tailwind('text-base text-gray-100 mx-2')}>•</Text>
                         <Text style={tailwind('text-base text-gray-100')}>{formatDuration(getTotalDuration(orders))}</Text>
                         <Text style={tailwind('text-base text-gray-100 mx-2')}>•</Text>

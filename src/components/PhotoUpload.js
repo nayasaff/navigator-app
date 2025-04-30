@@ -7,6 +7,7 @@ import ImageResizer from 'react-native-image-resizer';
 import ActionSheet from 'react-native-actions-sheet';
 import RNFS from 'react-native-fs';
 import tailwind from 'tailwind';
+import {translate} from "utils"
 
 const isDarkMode = Appearance.getColorScheme() === 'dark';
 const windowHeight = Dimensions.get('window').height;
@@ -101,7 +102,7 @@ const PhotoUpload = (props) => {
                 <View style={tailwind('z-40 w-full h-full')}>
                     <View style={tailwind('px-5 py-2 flex flex-row items-center justify-between mb-2')}>
                         <View style={tailwind('flex flex-row items-center')}>
-                            <Text style={tailwind('text-lg font-semibold')}>Select action</Text>
+                            <Text style={tailwind('text-lg font-semibold')}>{translate("PhotoUpload.selectAction")}</Text>
                         </View>
                         <View>
                             <TouchableOpacity onPress={() => actionSheetRef.current?.hide()}>
@@ -114,17 +115,17 @@ const PhotoUpload = (props) => {
                     <View>
                         <View style={tailwind('flex flex-row border-b border-gray-100')}>
                             <TouchableOpacity onPress={onLaunchCamera} style={tailwind('px-4 py-5 flex flex-row items-center justify-center')}>
-                                <Text style={tailwind('text-blue-500 font-semibold text-lg')}>Take Photo</Text>
+                                <Text style={tailwind('text-blue-500 font-semibold text-lg')}>{translate("PhotoUpload.takePhoto")}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={tailwind('flex flex-row w-full border-b border-gray-100')}>
                             <TouchableOpacity onPress={onLaunchImageLibrary} style={tailwind('px-4 py-5 flex flex-row items-center justify-center')}>
-                                <Text style={tailwind('text-blue-500 font-semibold text-lg')}>Choose from Library</Text>
+                                <Text style={tailwind('text-blue-500 font-semibold text-lg')}>{translate("PhotoUpload.chooseFromLibrary")}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={tailwind('flex flex-row w-full border-b border-gray-100')}>
                             <TouchableOpacity onPress={() => actionSheetRef.current?.hide()} style={tailwind('px-4 py-5 flex flex-row items-center justify-center')}>
-                                <Text style={tailwind('text-red-500 font-semibold text-lg')}>Cancel</Text>
+                                <Text style={tailwind('text-red-500 font-semibold text-lg')}>{translate("PhotoUpload.cancel")}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

@@ -59,6 +59,7 @@
         "inflector-js": "^1.0.1",
         "language-name-map": "^0.3.0",
         "locale-emoji": "^0.3.0",
+        "moment": "^2.30.1",
         "postcss": "^8.3.5",
         "react": "18.2.0",
         "react-native": "0.72.4",

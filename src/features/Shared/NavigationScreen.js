@@ -6,7 +6,7 @@ import React, { createRef, useCallback, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import tailwind from 'tailwind';
-import { getCurrentLocation, isArray, logError } from 'utils';
+import { getCurrentLocation, isArray, logError, translate } from 'utils';
 
 const NavigationScreen = ({ navigation, route }) => {
     const { _order, _destination } = route.params;
@@ -58,7 +58,7 @@ const NavigationScreen = ({ navigation, route }) => {
                     <View style={tailwind('flex-1 flex items-start')}>
                         <View style={tailwind('flex flex-row items-center')}>
                             <FontAwesomeIcon icon={faLocationArrow} style={tailwind('text-blue-100 mr-2')} />
-                            <Text style={tailwind('text-xl font-semibold text-blue-100')}>Navigation</Text>
+                            <Text style={tailwind('text-xl font-semibold text-blue-100')}>{translate("NavigationScreen.navigation")}</Text>
                         </View>
                         <Text style={tailwind('text-gray-50')} numberOfLines={1}>
                             {destination.getAttribute('address')}
