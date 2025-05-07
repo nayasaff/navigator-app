@@ -84,7 +84,7 @@
             "update-channel": "Update channel"
         },
         "ChatsScreen": {
-            "chat" : "Chat",
+            "Chat" : "Chat",
             "delete": "Delete",
             "create-channel": "Create channel"
         },

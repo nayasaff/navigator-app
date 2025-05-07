@@ -12,7 +12,8 @@ import { Platform } from 'react-native';
 import { EventRegister } from 'react-native-event-listeners';
 import PushNotification from 'react-native-push-notification';
 import { tailwind } from 'tailwind';
-import { createNewOrderLocalNotificationObject, getColorCode, listenForOrdersFromSocket, logError } from 'utils';
+import { createNewOrderLocalNotificationObject, getColorCode, listenForOrdersFromSocket, logError, translate } from 'utils';
+import { getLanguage } from '../../../utils/Localize';
 import { syncDevice } from 'utils/Auth';
 import { getCurrentLocation, trackDriver } from 'utils/Geo';
 import ChatsScreen from './ChatsScreen';
@@ -150,6 +151,7 @@ const MainScreen = ({ navigation, route }) => {
                         let icon;
                         switch (route.name) {
                             case 'Orders':
+                            case "الطلبات" :
                                 icon = faClipboardList;
                                 break;
                             case 'Routes':
@@ -162,12 +164,15 @@ const MainScreen = ({ navigation, route }) => {
                                 icon = faWallet;
                                 break;
                             case 'Account':
+                            case 'الحساب':
                                 icon = faUser;
                                 break;
                             case 'Issue':
+                            case 'مشكلة':
                                 icon = faFileAlt;
                                 break;
                             case 'Chat':
+                            case "الدردشة" : 
                                 icon = faCommentDots;
                                 break;
                         }
@@ -184,13 +189,13 @@ const MainScreen = ({ navigation, route }) => {
                         return <Header navigation={navigation} route={route} options={options} />;
                     },
                 })}>
-                <Tab.Screen key="orders" name="Orders" component={OrdersStack} />
+                <Tab.Screen key="orders" name={getLanguage() === "ar" ? "الطلبات" : "Orders"} component={OrdersStack} />
                 {/* <Tab.Screen key="routes" name="Routes" component={RoutesScreen} /> */}
                 {/* <Tab.Screen key="schedule" name="Schedule" component={ScheduleStack} /> */}
                 {/* <Tab.Screen key="wallet" name="Wallet" component={WalletScreen} /> */}
-                <Tab.Screen key="issue" name="Issue" component={IssuesScreen} />
-                <Tab.Screen key="chat" name="Chat" component={ChatsScreen} />
-                <Tab.Screen key="account" name="Account" component={AccountStack} />
+                <Tab.Screen key="issue" name={getLanguage() === "ar" ? "مشكلة" : "Issue"} component={IssuesScreen} />
+                <Tab.Screen key="chat" name={getLanguage() === "ar" ? "الدردشة" : "Chat" } component={ChatsScreen} />
+                <Tab.Screen key="account" name={getLanguage() === "ar" ? "الحساب" : "Account" } component={AccountStack} />
             </Tab.Navigator>
         </>
     );

@@ -85,7 +85,7 @@
             "update-channel": "تحديث القناة"
         },
         "ChatsScreen": {
-            "chat" : "Chat",
+            "Chat" : "Chat",
             "delete": "حذف",
             "create-channel": "إنشاء قناة"
         },
