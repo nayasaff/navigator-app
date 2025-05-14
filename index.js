@@ -2,16 +2,13 @@
  * @format
  */
 
-import { AppRegistry, Alert } from 'react-native';
-import App from './App';
-import { name as appName } from './app.json';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import PushNotification from 'react-native-push-notification';
-import { EventRegister } from 'react-native-event-listeners';
-import { set } from './src/utils/Storage';
-import RNCallKeep from 'react-native-callkeep';
 import messaging from '@react-native-firebase/messaging';
+import RNCallKeep from 'react-native-callkeep';
+import { EventRegister } from 'react-native-event-listeners';
+import PushNotification from 'react-native-push-notification';
 import fireCall from './src/utils/Call';
+import { set } from './src/utils/Storage';
 
 
 const { emit } = EventRegister;
@@ -117,4 +114,6 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     return Promise.resolve();  // Ensure the function completes
 });
 
-AppRegistry.registerComponent(appName, () => App);
+// AppRegistry.registerComponent(appName, () => App);
+import './index.native.tsx';
+
