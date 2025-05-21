@@ -2,4 +2,8 @@
     <string name="app_name">NavigatorApp</string>
     <string name="facebook_app_id">@string/facebook_app_id</string>
     <string name="facebook_client_token">@string/facebook_client_token</string>
+    <string name="FACEBOOK_APP_ID">12345</string>
+    <string name="FACEBOOK_CLIENT_TOKEN">abc</string>
+    <string name="GOOGLE_MAPS_API_KEY">AIza</string>
+    <string name="TRANSISTORSOFT_LICENSE_KEY">your-license-key-here</string>
 </resources>
