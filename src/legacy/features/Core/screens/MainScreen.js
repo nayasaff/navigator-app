@@ -20,7 +20,6 @@ import { getLanguage } from '../../../utils/Localize';
 import ChatsScreen from './ChatsScreen';
 import IssuesScreen from './IssuesScreen';
 
-
 const { addEventListener, removeEventListener } = EventRegister;
 const Tab = createBottomTabNavigator();
 const isAndroid = Platform.OS === 'android';
@@ -108,7 +107,6 @@ const MainScreen = ({ navigation, route }) => {
         };
     }, [isMounted]);
 
-
     // Listen for new orders via Socket Connection
     useEffect(() => {
         const notifiableEvents = ['order.ready', 'order.ping', 'order.driver_assigned', 'order.dispatched'];
@@ -117,30 +115,30 @@ const MainScreen = ({ navigation, route }) => {
         const handleAppStateChange = (nextAppState) => {
             if (appState.match(/inactive|background/) && nextAppState === 'active') {
                 // App has come to the foreground
-                console.log("App has come to the foreground!");
-                appState = nextAppState; 
+                console.log('App has come to the foreground!');
+                appState = nextAppState;
             }
             appState = nextAppState;
         };
-    
+
         AppState.addEventListener('change', handleAppStateChange);
-    
-        listenForOrdersFromSocket(`driver.${driver?.id}`, async(order, event) => {
+
+        listenForOrdersFromSocket(`driver.${driver?.id}`, async (order, event) => {
             if (typeof event === 'string' && notifiableEvents.includes(event)) {
                 let localNotificationObject = createNewOrderLocalNotificationObject(order, driver);
+                console.log('Test new order');
                 PushNotification.localNotification(localNotificationObject);
-                if(AppState.currentState === 'active') {
-                   await fireCall(order.id);
+                if (AppState.currentState === 'active') {
+                    console.log('Test');
+                    await fireCall(order.id);
                 }
-
             }
         });
-        
+
         return () => {
             AppState.removeEventListener('change', handleAppStateChange);
         };
     }, []);
-
 
     return (
         <>
@@ -150,7 +148,7 @@ const MainScreen = ({ navigation, route }) => {
                         let icon;
                         switch (route.name) {
                             case 'Orders':
-                            case "الطلبات" :
+                            case 'الطلبات':
                                 icon = faClipboardList;
                                 break;
                             case 'Routes':
@@ -171,7 +169,7 @@ const MainScreen = ({ navigation, route }) => {
                                 icon = faFileAlt;
                                 break;
                             case 'Chat':
-                            case "الدردشة" : 
+                            case 'الدردشة':
                                 icon = faCommentDots;
                                 break;
                         }
@@ -187,14 +185,15 @@ const MainScreen = ({ navigation, route }) => {
                     header: ({ navigation, route, options }) => {
                         return <Header navigation={navigation} route={route} options={options} />;
                     },
-                })}>
-                <Tab.Screen key="orders" name={getLanguage() === "ar" ? "الطلبات" : "Orders"} component={OrdersStack} />
+                })}
+            >
+                <Tab.Screen key='orders' name={getLanguage() === 'ar' ? 'الطلبات' : 'Orders'} component={OrdersStack} />
                 {/* <Tab.Screen key="routes" name="Routes" component={RoutesScreen} /> */}
                 {/* <Tab.Screen key="schedule" name="Schedule" component={ScheduleStack} /> */}
                 {/* <Tab.Screen key="wallet" name="Wallet" component={WalletScreen} /> */}
-                <Tab.Screen key="issue" name={getLanguage() === "ar" ? "مشكلة" : "Issue"} component={IssuesScreen} />
-                <Tab.Screen key="chat" name={getLanguage() === "ar" ? "الدردشة" : "Chat" } component={ChatsScreen} />
-                <Tab.Screen key="account" name={getLanguage() === "ar" ? "الحساب" : "Account" } component={AccountStack} />
+                <Tab.Screen key='issue' name={getLanguage() === 'ar' ? 'مشكلة' : 'Issue'} component={IssuesScreen} />
+                <Tab.Screen key='chat' name={getLanguage() === 'ar' ? 'الدردشة' : 'Chat'} component={ChatsScreen} />
+                <Tab.Screen key='account' name={getLanguage() === 'ar' ? 'الحساب' : 'Account'} component={AccountStack} />
             </Tab.Navigator>
         </>
     );

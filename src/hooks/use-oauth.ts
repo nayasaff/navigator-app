@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
-import { authorize } from 'react-native-app-auth';
-import { config } from '../utils';
+import { toast } from '@backpackapp-io/react-native-toast';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
-import { toast, ToastPosition } from '@backpackapp-io/react-native-toast';
-import useFleetbase from '../hooks/use-fleetbase';
-import { useAuth } from '../contexts/AuthContext';
-import { useNotification } from '../contexts/NotificationContext';
-import { Settings as FacebookSDKSettings, LoginManager as FacebookLoginManager, Profile as FacebookProfile } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useEffect, useState } from 'react';
+import { LoginManager as FacebookLoginManager, Profile as FacebookProfile } from 'react-native-fbsdk-next';
+import { useAuth } from '../contexts/AuthContext';
+import useFleetbase from '../hooks/use-fleetbase';
+import { config } from '../utils';
 
 const APP_LINK_PREFIX = config('APP_LINK_PREFIX');
 
@@ -165,12 +163,12 @@ const useOAuth = () => {
         }
     };
 
-    useEffect(() => {
-        if (loginSupported('facebook')) {
-            FacebookSDKSettings.setAppID(config('FACEBOOK_APP_ID'));
-            FacebookSDKSettings.initializeSDK();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (loginSupported('facebook')) {
+    //         FacebookSDKSettings.setAppID(config('FACEBOOK_APP_ID'));
+    //         FacebookSDKSettings.initializeSDK();
+    //     }
+    // }, []);
 
     useEffect(() => {
         if (loginSupported('google')) {

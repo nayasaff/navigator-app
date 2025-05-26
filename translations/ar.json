@@ -1,4 +1,97 @@
 {
+    "AdhocOrderCard": {
+        "acceptAdhocOrder": "Accept Ad-Hoc order?",
+        "acceptance": "By accepting this ad-hoc order it will become assigned to you and the order will start immediatley.",
+        "accept": "Accept",
+        "dismissAdhocOrder": "Dismiss Ad-Hoc order?",
+        "dismissing": "By dimissing this ad-hoc order it will no longer display as an available order.",
+        "Ok": "OK",
+        "assigningOrder": "Accepting and assigning order...",
+        "nearbyOrder": "Order Available Nearby:",
+        "away": "away",
+        "dismissOrder": "Dismiss Order"
+    },
+    "AlertPromptBox": {
+        "areYouSure": "Are you sure you want to proceed?"
+    },
+    "BottomSheetSelect": {
+        "select": "Select an option",
+        "searchOptions": "Search options"
+    },
+    "Buttons": {
+        "continueWithPhone": "Continue with Phone"
+    },
+    "CameraCapture": {
+        "loadingCamera": "Loading camera or awaiting permission...",
+        "gallery": "Gallery",
+        "snap": "Snap",
+        "photoes": "Photos",
+        "close": "Close"
+    },
+    "CurrentDestinationSelect": {
+        "selectDestination": "Select destination"
+    },
+    "FuelReportForm": {
+        "odometer": "Odometer",
+        "volumne": "Volume",
+        "cost": "Cost"
+    },
+    "LocationPicker": {
+        "addNewLocation": "Add New Location"
+    },
+    "MoneyInput": {
+        "searchCurrencies": "Search currencies"
+    },
+    "MutlipleCustomerAvatar": {
+        "noCustomers": "No customers"
+    },
+    "OrderActivitySelect": {
+        "updateActivity": "Updating activity for:",
+        "selectActivity": "Select activity"
+    },
+    "OrderCustomerCard": {
+        "call": "Call"
+    },
+    "OrderPayloadEntities": {
+        "emptyPayload": "Empty Payload."
+    },
+    "OrderWaypointList": {
+        "moreWaypoints": "more waypoints"
+    },
+    "QrCodeScanner": {
+        "cameraPermission": "Camera permission not granted",
+        "noCamera": "No camera available"
+    },
+    "LocationContext": {
+        "allowLocation": "Allow to access your location",
+        "accessLocation": "collects location data to update your position in real-time, even when the app is closed or running in the background. This allows dispatchers and ops teams to track your progress and provide better support while you drive.",
+        "deny": "Deny",
+        "allow": "Allow"
+    },
+    "CreateAccountScreen": {
+        "createAccount": "Create Account",
+        "haveAnAccount": "Have an account already? Login"
+    },
+    "CreateAccountVerifyScreen": {
+        "codeSentTo": "Code sent to",
+        "verifyCode": "Verify Code",
+        "retry": "Retry"
+    },
+    "DriverDashboardScreen": {
+        "tracking": "Tracking",
+        "activeOrders": "Active Orders",
+        "speed": "Speed"
+    },
+    "DriverOrderManagementScreen": {
+        "noCurrentOrder": "No current orders for"
+    },
+    "LocationPermissionScreen": {
+        "showAlert": "Show Alert"
+    },
+    "PhoneLoginScreen": {
+        "loginViaSMS": "Login via SMS",
+        "home": "Home"
+    },
     "Account": {
         "AccountScreen": {
             "title": "إنشاء حساب أو تسجيل الدخول",
@@ -12,8 +105,8 @@
             "ordersLinkText": "الطلبات",
             "placesLinkText": "الأماكن",
             "signoutButtonText": "تسجيل الخروج",
-            "changePasswordScreen" : "Change Password Screen",
-            "account" : "Account"
+            "changePasswordScreen": "Change Password Screen",
+            "account": "Account"
         },
         "EditProfileScreen": {
             "title": "ملفك الشخصي",
@@ -45,7 +138,7 @@
             "email": "عنوان بريدك",
             "document": "تحميل المستندات",
             "save": "حقظ",
-		    "empty": "لا يوجد مؤسسة"
+            "empty": "لا يوجد مؤسسة"
         },
         "OrganizationsScreen": {
             "searchInputPlaceholderText": "جاري البحث عن مؤسسة"
@@ -59,7 +152,7 @@
         },
         "StorefrontScreen": {},
         "IssueScreen": {
-            "issue" : "المشكلة",
+            "issue": "المشكلة",
             "issues": "المشاكل",
             "type": "نوع المشكلة",
             "selectType": "اختر نوع",
@@ -85,7 +178,7 @@
             "update-channel": "تحديث القناة"
         },
         "ChatsScreen": {
-            "Chat" : "Chat",
+            "Chat": "Chat",
             "delete": "حذف",
             "create-channel": "إنشاء قناة"
         },
@@ -142,12 +235,22 @@
             "tip": "البقشيش",
             "deliveryTip": "بقشيش التوصيل",
             "total": "الإجمالي",
-            "document" : "Documents & Files",
-            "confirm" : "Confirm order activity",
-            "requires" : "Requires proof of delivery",
-            "completeOrder" : "Complete Order",
-            "completeAndContinue" : "Complete and continue",
-            "changeDestination" : "Change destination waypoint"
+            "document": "Documents & Files",
+            "confirm": "Confirm order activity",
+            "requires": "Requires proof of delivery",
+            "completeOrder": "Complete Order",
+            "completeAndContinue": "Complete and continue",
+            "changeDestination": "Change destination waypoint",
+            "orderNotDispatched": "Order has not been dispatched",
+            "orderNotDispatchedYet": "Order has not been dispatched",
+            "areYouSure": "This order is not yet dispatched, are you sure you want to continue?",
+            "startNavigation": "Start Navigation",
+            "orderComments": "Order Comments",
+            "ect": "Estimated Completion Time",
+            "nextDestination": "Next Destination",
+            "orderInformation": "Order Information",
+            "orderRoute": "Order Route",
+            "orderProgress": "Order Progress"
         },
         "ConfigScreen": {
             "title": "تاكيد التكوينات",
@@ -196,78 +299,78 @@
         "pending": "مُعلَّق",
         "in_progress": "في قيد التنقيذ",
         "completed": "مكتمل",
-        "started" : "started"
+        "started": "started"
     },
-    "OrderScreen" : {
+    "OrderScreen": {
         "incomingOrder": "الطلب القادم!",
         "acceptOrder": "قبول الطلب",
-        "declineOrder" : "رفض الطلب",
+        "declineOrder": "رفض الطلب",
         "startOrder": "ابداء الطلب",
         "updateActivity": "تحديث الطلب",
         "currentDestination": "الوجهة الحالية",
         "change": "تغير",
         "setDestination": "تحديد وجهة",
-        "customer" : "العميل",
-        "noCustomer" : "لا يوجدعميل",
-        "orderDetails" : "تفاصيل",
-        "status" : "الحالة",
-        "internalId" : "رقم التعريف الداخلي",
-        "orderType" : "نوع الطلب",
-        "trackingNumber" : "رقم التتبع",
-        "dateCreated" : "تاريخ الإنشاء",
-        "dateScheduled" : "التاريخ المحدد",
-        "dateDispatched" : "تاريخ الإرسال",
-        "dateStarted" : "تاريخ البدء",
-        "meta" : "البيانات الوصفية/ المزيد من التفاصيل",
-        "qrCode" : "رمز الاستجابة السريعة / الرمز الشريطي",
-        "notes" : "ملاحظات",
-        "payload" : "الحمولة",
-        "itemsDropAt" : "مكان تسليم",
-        "nearbyOrders" : "الطلبات القريبة",
-        "nearbyOrder" : "الطلب القريب"
+        "customer": "العميل",
+        "noCustomer": "لا يوجدعميل",
+        "orderDetails": "تفاصيل",
+        "status": "الحالة",
+        "internalId": "رقم التعريف الداخلي",
+        "orderType": "نوع الطلب",
+        "trackingNumber": "رقم التتبع",
+        "dateCreated": "تاريخ الإنشاء",
+        "dateScheduled": "التاريخ المحدد",
+        "dateDispatched": "تاريخ الإرسال",
+        "dateStarted": "تاريخ البدء",
+        "meta": "البيانات الوصفية/ المزيد من التفاصيل",
+        "qrCode": "رمز الاستجابة السريعة / الرمز الشريطي",
+        "notes": "ملاحظات",
+        "payload": "الحمولة",
+        "itemsDropAt": "مكان تسليم",
+        "nearbyOrders": "الطلبات القريبة",
+        "nearbyOrder": "الطلب القريب"
     },
-    "OrderMapPicker" : {
-        "navigate" : "التنقل"
+    "OrderMapPicker": {
+        "navigate": "التنقل"
     },
-    "PhotoUpload" : {
-        "selectAction" : "اختر إجراء",
-        "takePhoto" : "التقط الصورة",
-        "chooseFromLibrary" : "اختر من البوم",
-        "cancel" : "إلغاء"
+    "PhotoUpload": {
+        "selectAction": "اختر إجراء",
+        "takePhoto": "التقط الصورة",
+        "chooseFromLibrary": "اختر من البوم",
+        "cancel": "إلغاء"
     },
-    "ScheduleScreen" : {
-        "noOrders" : "لا يوجد طلبات  ىمحددة اليوم"
+    "ScheduleScreen": {
+        "noOrders": "لا يوجد طلبات  ىمحددة اليوم"
     },
-    "NavigationScreen" : {
-        "navigation" : "الوجهة"
+    "NavigationScreen": {
+        "navigation": "الوجهة"
     },
-    "ProofScreen" : {
-        "reset" : "إعادة ضبط",
-        "capture" : "التقاط",
-        "focusTarget" : "ركز على الهدف عند رمز الاستجابة السريعة للمسح الضوئي",
-        "currentDestination" : "الوجهة الحالية",
-        "tracking" : ":التتبع",
-        "internalId" : ":رقم التعريف الداخلي",
-        "sku" : ":رقم المنتج"
+    "ProofScreen": {
+        "reset": "إعادة ضبط",
+        "capture": "التقاط",
+        "focusTarget": "ركز على الهدف عند رمز الاستجابة السريعة للمسح الضوئي",
+        "currentDestination": "الوجهة الحالية",
+        "tracking": ":التتبع",
+        "internalId": ":رقم التعريف الداخلي",
+        "sku": ":رقم المنتج"
     },
-    "EntityScreen" : {
-        "proof" : "Add Proof of Delivery",
-        "type" : "Type",
-        "weight" : "Weight",
-        "dimensions" : "Dimensions",
-        "value" : "Value",
-        "price" : "Price",
-        "salesPrice" : "Sales Price",
-        "declaredValue" : "Declared Value",
-        "currency" : "Currency"
+    "EntityScreen": {
+        "proof": "Add Proof of Delivery",
+        "type": "Type",
+        "weight": "Weight",
+        "dimensions": "Dimensions",
+        "value": "Value",
+        "price": "Price",
+        "salesPrice": "Sales Price",
+        "declaredValue": "Declared Value",
+        "currency": "Currency"
     },
-    "SimpleOrderMetricts" : {
-        "stops" : "stops",
-        "orders" : "الطلبات",
-        "order" : "الطلب"
+    "SimpleOrderMetricts": {
+        "stops": "stops",
+        "orders": "الطلبات",
+        "order": "الطلب"
     },
-    "Alert" : {
-        "notDispatched" : "This order is not yet dispatched, are you sure you want to continue?",
-        "orderNotDispatched" : "Order Not Dispatched Yet"
+    "Alert": {
+        "notDispatched": "This order is not yet dispatched, are you sure you want to continue?",
+        "orderNotDispatched": "Order Not Dispatched Yet"
     }
 }
